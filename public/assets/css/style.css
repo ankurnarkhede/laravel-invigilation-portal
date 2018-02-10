@@ -1,0 +1,92 @@
+
+
+
+.active0{
+	background-color: #b6b6b6 !important;
+
+}
+
+.float_r{
+	float: right;
+}
+
+
+.text_wrap{
+	white-space: pre-wrap !important;
+	word-wrap: break-word !important;
+}
+
+.side_nav_width{
+	width: 240px;
+}
+
+.bottom0{
+	margin-bottom: 0px !important;
+}
+
+.text_center {
+	text-align: center !important;
+}
+
+.text-bold{
+	font-weight: bold !important;
+}
+
+.top_5px{
+	margin-top: 5px;
+}
+
+.card_font
+{
+	font-size: 170% !important;
+}
+
+.timestamp{
+	font-weight: normal !important;
+	margin: 2% 0 0 0 !important;
+}
+
+.post_action{
+	margin-left: 20px !important;
+	cursor: pointer !important;
+}
+
+.card_form_padding{
+	padding: 2% 0% 3% 2%;
+}
+
+.display_none{
+	display: none !important;
+}
+
+
+/*middle content on sidebar hide*/
+
+@media screen and (max-device-width: 640px){
+
+	.mn-inner.hidden-fixed-sidebar {
+		padding-left: 0px !important;
+	}
+
+	.middle-content {
+		padding-right: 0px !important;
+	}
+
+
+
+
+
+
+
+}
+
+html{
+    font-weight: 500;
+}
+
+
+
+
+
+
+
