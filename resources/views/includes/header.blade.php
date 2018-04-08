@@ -13,7 +13,7 @@
 
     <!-- Styles -->
     <link type="text/css" rel="stylesheet" href="assets/plugins/materialize/css/materialize.min.css"/>
-    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="assets/plugins/metrojs/MetroJs.min.css" rel="stylesheet">
     <link href="assets/plugins/weather-icons-master/css/weather-icons.min.css" rel="stylesheet">
     <link href="assets/plugins/material-preloader/css/materialPreloader.min.css" rel="stylesheet">
@@ -92,6 +92,10 @@
                 </li>
 
                 <li class="no-padding  ">
+                    <a class="waves-effect waves-grey  " href="{{ route('reports') }}"><i class="material-icons">assignment</i>Reports</a>
+                </li>
+
+                <li class="no-padding  ">
                     <a class="waves-effect waves-grey  " href="{{ route('sms') }}"><i class="material-icons">sms</i>Send SMS</a>
                 </li>
 
@@ -124,5 +128,3 @@
 
 
 
-
-		

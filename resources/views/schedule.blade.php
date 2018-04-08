@@ -96,7 +96,7 @@
 
 
                                     </select>
-                                    <label>Exam Name</label>
+                                    <label>Department</label>
                                 </div>
                             </div>
 
@@ -115,7 +115,7 @@
                                     <label for="time">Time</label>
                                     <input name="time" id="time" type="text" class="timepicker">
 
-                                    <span class=""><div>Time format: <span class="red-text">11:30AM - 1:00AM</span></div></span>
+                                    <span class=""><div>Time format: <span class="red-text">13:00 - 15:30</span></div></span>
 
 
                                 </div>
@@ -161,6 +161,31 @@
 
                                     </select>
                                     <label>Exam Name</label>
+                                </div>
+                            </div>
+
+                            <div class="bottom0 row">
+                                <div class="input-field col s12">
+                                    <i class="material-icons prefix">list</i>
+                                    <select name="select_dept" required="required"  >
+                                        <option value="" disabled  selected>Select Department</option>
+
+
+                                        <option value="CSE">CSE</option>
+                                        <option value="EXTC">EXTC</option>
+                                        <option value="CHEM">CHEM</option>
+                                        <option value="INFT">INFT</option>
+                                        <option value="INST">INST</option>
+                                        <option value="MECH">MECH</option>
+                                        <option value="PROD">PROD</option>
+                                        <option value="TEXT">TEXT</option>
+                                        <option value="CIVIL">CIVIL</option>
+                                        <option value="ELEC">ELEC</option>
+
+
+
+                                    </select>
+                                    <label>Department</label>
                                 </div>
                             </div>
 
@@ -210,6 +235,82 @@
     {{--schedule end--}}
 
 
+    {{--Delete start--}}
+
+    <div class="row no-m-t no-m-b">
+        <div class="col s12 m12 l12">
+            <div class="row card darken-1 card_form_padding">
+
+                <h4 class="text_center">Delete Invigilation</h4>
+
+                <div class="row">
+
+                    {{--by manually--}}
+                    <div id="manual" class="col s12">
+                        <span></span>
+                        <form class="col s12" action="{{ route('delete-bulk') }}" enctype="multipart/form-data" method="POST" >
+
+                            <input type="hidden" name="_token" value="{{ Session::token() }}">
+
+                            <div class="bottom0 row">
+                                <div class="input-field col s12">
+                                    <i class="material-icons prefix">list</i>
+                                    <select name="select_exam" required="required"  >
+                                        <option value="" disabled  selected>Select Exam</option>
+
+                                        @foreach($exams_delete as $exam_delete)
+                                            <option value="{{ $exam_delete->exam }}">{{ $exam_delete->exam }}</option>
+
+                                        @endforeach
+
+                                    </select>
+                                    <label>Exam Name</label>
+                                </div>
+                            </div>
+
+
+                            <div class="bottom0 row">
+                                <div class="input-field col s12">
+                                    <i class="material-icons prefix">list</i>
+                                    <select name="select_dept" required="required"  >
+                                        <option value="" disabled  selected>Select Department</option>
+
+                                        @foreach($dept_delete as $dept)
+                                            <option value="{{ $dept->dept }}">{{ $dept->dept }}</option>
+
+                                        @endforeach
+
+                                    </select>
+                                    <label>Department</label>
+                                </div>
+                            </div>
+
+
+
+
+
+                            <button class="btn waves-effect waves-light" type="submit" name="add">Delete
+                                <i class="material-icons right">delete</i>
+                            </button>
+                        </form>
+
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    {{--delete end--}}
+
+
+
+
+
     {{--schedule list--}}
     <div class="row no-m-t no-m-b">
         <div class="col s12">
@@ -225,7 +326,8 @@
                         <tr>
                             <th>id</th>
                             <th>Faculty Name</th>
-                            <th>Faculty Contact</th>
+                            <th>Contact</th>
+                            <th>Dept</th>
                             <th>Exam</th>
                             <th>Date</th>
                             <th>Time</th>
@@ -239,7 +341,8 @@
                         <tr>
                             <th>id</th>
                             <th>Faculty Name</th>
-                            <th>Faculty Contact</th>
+                            <th>Contact</th>
+                            <th>Dept</th>
                             <th>Exam</th>
                             <th>Date</th>
                             <th>Time</th>
@@ -262,9 +365,10 @@
                                 <td><?php echo $count ?></td>
                                 <td>{{ $schedule->fac_name }}</td>
                                 <td>{{ $schedule->fac_phone }}</td>
+                                <td>{{ $schedule->dept }}</td>
                                 <td>{{ $schedule->exam }}</td>
                                 <td>{{ $schedule->date }}</td>
-                                <td>{{ $schedule->time }}</td>
+                                <td>{{ $schedule->time_text }}</td>
                                 <td>
                                     <form method="post" action="{{ route('invigilation-status') }}">
                                         <input type="text" name="schedule_id" id="schedule_id" class="display_none" value="{{ $schedule->id }}">

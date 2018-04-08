@@ -56,8 +56,8 @@
                     <li class="collection-item">
                         <ul class="collection with-header">
                             <li class="collection-item"><div>The time and date of invigilation should be in the following format: </div></li>
-                            <li class="collection-item"><div>Time: <span class="red-text">9:05AM - 12:00AM</span></div></li>
-                            <li class="collection-item"><div>i.e.: hr:minAM/PM<span class="red-text">&lt;space&gt;</span>-<span class="red-text">&lt;space&gt;</span>hr:minAM/PM</div></li>
+                            <li class="collection-item"><div>Time: <span class="red-text">13:00 - 15:30</span></div></li>
+                            <li class="collection-item"><div>i.e.: hr:min<span class="red-text">&lt;space&gt;</span>-<span class="red-text">&lt;space&gt;</span>hr:min</div></li>
                             <li class="collection-item"><div>Date: 2017-11-25</div></li>
                             <li class="collection-item"><div>i.e.: <span class="red-text">YYYY-MM-DD</span></div></li>
 

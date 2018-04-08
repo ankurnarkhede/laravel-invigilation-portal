@@ -110,6 +110,27 @@ Route::group(['middleware' => ['web']], function () {
         'middleware' => 'auth_login'
     ]);
 
+    Route::post('/delete-bulk', [
+        'uses' => 'SMSController@postDeleteBulk',
+        'as'=>'delete-bulk',
+        'middleware' => 'auth_login'
+    ]);
+
+    Route::get('/reports', [
+        'uses' => 'ReportController@getReports',
+        'as'=>'reports',
+        'middleware' => 'auth_login'
+    ]);
+
+    Route::post('/get-report', [
+        'uses' => 'ReportController@postGetReport',
+        'as'=>'get-report',
+        'middleware' => 'auth_login'
+    ]);
+
+
+
+
 
 
 });

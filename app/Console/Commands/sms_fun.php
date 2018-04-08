@@ -44,7 +44,7 @@ function SendSMS($fac_name, $fac_phone, $time_text, $exam, $date){
     $mobileNumber = $phone;
 
     //Sender ID,While using route4 sender id should be 6 characters long.
-    $senderId = "";
+    $senderId = "OLSGGS";
 
     //Your message to send, Add URL encoding here.
     $message = urlencode($sms_text);

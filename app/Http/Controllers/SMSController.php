@@ -22,6 +22,8 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 use phpDocumentor\Reflection\Types\Null_;
 
+use Illuminate\Support\Facades\Response  as FacadeResponse;
+
 require "fun.php";
 
 
@@ -67,7 +69,7 @@ class SMSController extends Controller{
         $mobileNumber = $phone;
 
         //Sender ID,While using route4 sender id should be 6 characters long.
-        $senderId = "";
+        $senderId = "OLSGGS";
 
         //Your message to send, Add URL encoding here.
         $message = urlencode($sms_text);
@@ -158,9 +160,20 @@ class SMSController extends Controller{
 
 
     public function getSchedule(){
+//        for upload
         $schedule=schedule::orderBy('created_at', 'desc')->get();
         $exams=exam::orderBy('created_at', 'desc')->get();
-        return view('schedule',  ['user'=>Auth::user(), 'schedules'=>$schedule, 'exams'=>$exams]);
+
+//        for delete
+
+        $exams_delete=schedule::select('exam')->distinct()->orderBy('created_at', 'desc')->get();
+        $dept_delete=schedule::select('dept')->distinct()->orderBy('created_at', 'desc')->get();
+
+
+
+
+
+        return view('schedule',  ['user'=>Auth::user(), 'schedules'=>$schedule, 'exams'=>$exams, 'exams_delete'=>$exams_delete, 'dept_delete'=>$dept_delete]);
     }
 
 
@@ -171,6 +184,7 @@ class SMSController extends Controller{
             'fac_name' => 'required',
             'fac_contact' => 'required|max:15',
             'select_exam'=> 'required',
+            'select_dept'=> 'required',
             'date'=> 'required',
             'time'=> 'required'
         ]);
@@ -178,6 +192,7 @@ class SMSController extends Controller{
         $fac_name=$request['fac_name'];
         $fac_contact=$request['fac_contact'];
         $select_exam=$request['select_exam'];
+        $select_dept=$request['select_dept'];
         $date=$request['date'];
         $time_text=$request['time'];
 //        processing on time
@@ -198,9 +213,11 @@ class SMSController extends Controller{
         $schedule->time_text=trim($time_text);
         $schedule->fac_name=trim($fac_name);
         $schedule->fac_phone=trim($fac_contact);
+        $schedule->dept=trim($select_dept);
         $schedule->approve=$approve;
         $schedule->sent_1=$sent_1;
         $schedule->sent_2=$sent_2;
+
 
         if ($schedule->save()){
             $result="Invigilation of ".$fac_name." scheduled at $date $time";
@@ -220,17 +237,20 @@ class SMSController extends Controller{
         $this -> validate($request, [
 
             'select_exam'=> 'required',
+            'select_dept'=> 'required',
             'csv_file'=> 'required'
 
         ]);
 
 //        taking post values
         $select_exam=$request['select_exam'];
+        $select_dept=$request['select_dept'];
+
 
         $user=Auth::user();
         $username=$user->name;
         $file=$request->file('csv');
-        $filename=$username.'-'.$request['select_exam'].'-'.$request['csv_file'].'.csv';
+        $filename=$username.'-'.$request['select_exam'].'-'.$select_dept.'-'.$request['csv_file'].'-'.mt_rand(0,999999).'.csv';
         if ($file){
             Storage::disk('local')->put($filename, File::get($file));
 
@@ -275,7 +295,7 @@ class SMSController extends Controller{
 
 //                  data save logic in table
                     for ($i=3; $i<$cols_count; $i++){
-                        if((trim($data[$i])=='y') || (trim($data[$i])=='Y')){
+                        if((trim($data[$i])=='y') || (trim($data[$i])=='Y')|| (trim($data[$i])=='Yes')|| (trim($data[$i])=='yes')){
                             $schedule = new schedule();
 
                             $schedule->exam=trim($select_exam);
@@ -295,6 +315,7 @@ class SMSController extends Controller{
 
                             $schedule->fac_name=trim($data[1]);
                             $schedule->fac_phone=trim($data[2]);
+                            $schedule->dept=trim($select_dept);
                             $schedule->approve=1;
                             $schedule->sent_1=0;
                             $schedule->sent_2=0;
@@ -456,6 +477,43 @@ class SMSController extends Controller{
 
         return response()->download($path);
     }
+
+
+//    delete bulk function
+
+    public function postDeleteBulk(Request $request){
+        //        validation
+        $this -> validate($request, [
+            'select_exam' => 'required',
+            'select_dept' => 'required'
+
+        ]);
+
+        $select_exam=$request['select_exam'];
+        $select_dept=$request['select_dept'];
+
+
+        $schedule1=schedule::where('exam', '=', $select_exam)
+                            ->where('dept', '=', $select_dept)
+                            ->get();
+
+        $count=0;
+        foreach ($schedule1 as $sch){
+            $sch->delete();
+            $count++;
+        }
+        $result=$count.' invigilations with Exam: '.$select_exam.' and Department: '.$select_dept.' deleted successfully!';
+
+        return redirect()->route('schedule')->with(['result'=>$result]);
+
+
+    }
+
+
+
+
+
+
 
 
 

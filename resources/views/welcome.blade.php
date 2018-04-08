@@ -160,7 +160,7 @@
             </div>
         </form>
 
-        <p class="text_center">Developed by <a href="https://www.facebook.com/smartankur4u">Ankur Narkhede</a></p>
+        <p class="text_center">Developed by <a href="https://www.linkedin.com/in/ankurnarkhede">Ankur Narkhede</a></p>
 
     </div>
 </div>

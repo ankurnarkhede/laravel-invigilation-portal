@@ -2,7 +2,7 @@
 <div class="page-footer" style="">
     <div class="row footer-grid container">
         <div class="col s6 offset-s3" style="text-align: center;">
-            <span style="text-align:center;">Developed by <a href="https://www.facebook.com/smartankur4u">Ankur Narkhede</a></span>
+            <span style="text-align:center;">Developed by <a href="https://www.linkedin.com/in/ankurnarkhede">Ankur Narkhede</a></span>
         </div>
 
 
